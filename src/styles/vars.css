@@ -1,0 +1,107 @@
+:root{
+    /* color */
+    --wm-color-white: #ffffff;
+    --wm-color-black: #000000;
+
+    /*  
+        这里尝试使用@each 语法去生成颜色
+    @each $val,$color in (primary,success),(#409eff,#67c23a){
+        --wm-color-1-$(val):$(color);
+        @for $i from 3 to 9 by 2{ 
+            --wm-color-1-$(val)-light-$(i):mix(#fff,$(color),.$(i));
+        }
+        --wm-color-1-$(val)-light-8: mix(#fff,$(color),.8);
+        --wm-color-1-$(val)-dark-2: mix(#000,$(color),.2);
+    }
+
+    */
+
+    --wm-color-primary: #409eff;
+    --wm-color-primary-light-3: rgb(121, 187, 255);
+    --wm-color-primary-light-5: rgb(160, 207, 255);
+    --wm-color-primary-light-7: rgb(198, 226, 255);
+    --wm-color-primary-light-8: rgb(217, 236, 255);
+    --wm-color-primary-light-9: rgb(236, 245, 255);
+    --wm-color-primary-dark-2: rgb(51, 126, 204);
+
+    --wm-color-success: #67c23a;
+    --wm-color-success-light-3: rgb(149, 212, 117);
+    --wm-color-success-light-5: rgb(179, 225, 157);
+    --wm-color-success-light-7: rgb(209, 237, 196);
+    --wm-color-success-light-8: rgb(225, 243, 216);
+    --wm-color-success-light-9: rgb(240, 249, 235);
+    --wm-color-success-dark-2: rgb(82, 155, 46);
+    --wm-color-warning: #e6a23c;
+
+    --wm-color-warning-light-3: rgb(238, 190, 119);
+    --wm-color-warning-light-5: rgb(243, 209, 158);
+    --wm-color-warning-light-7: rgb(248, 227, 197);
+    --wm-color-warning-light-8: rgb(250, 236, 216);
+    --wm-color-warning-light-9: rgb(253, 246, 236);
+    --wm-color-warning-dark-2: rgb(184, 130, 48);
+
+    --wm-color-danger: #f56c6c;
+    --wm-color-danger-light-3: rgb(248, 152, 152);
+    --wm-color-danger-light-5: rgb(250, 182, 182);
+    --wm-color-danger-light-7: rgb(252, 211, 211);
+    --wm-color-danger-light-8: rgb(253, 226, 226);
+    --wm-color-danger-light-9: rgb(254, 240, 240);
+    --wm-color-danger-dark-2: rgb(196, 86, 86);
+
+    --wm-color-info: #909399;
+    --wm-color-info-light-3: rgb(177, 179, 184);
+    --wm-color-info-light-5: rgb(200, 201, 204);
+    --wm-color-info-light-7: rgb(222, 223, 224);
+    --wm-color-info-light-8: rgb(233, 233, 235);
+    --wm-color-info-light-9: rgb(244, 244, 245);
+    --wm-color-info-dark-2: rgb(115, 118, 122);
+
+    /* mid-color */
+    --wm-bg-color: #ffffff;
+    --wm-bg-color-page: #f2f3f5;
+    --wm-bg-color-overlay: #ffffff;
+    --wm-text-color-primary: #303133;
+    --wm-text-color-regular: #606266;
+    --wm-text-color-secondary: #909399;
+    --wm-text-color-placeholder: #a8abb2;
+    --wm-text-color-disabled: #c0c4cc;
+    --wm-border-color: #dcdfe6;
+    --wm-border-color-light: #e4e7ed;
+    --wm-border-color-lighter: #ebeef5;
+    --wm-border-color-extra-light: #f2f6fc;
+    --wm-border-color-dark: #d4d7de;
+    --wm-border-color-darker: #cdd0d6;
+    --wm-fill-color: #f0f2f5;
+    --wm-fill-color-light: #f5f7fa;
+    --wm-fill-color-lighter: #fafafa;
+    --wm-fill-color-extra-light: #fafcff;
+    --wm-fill-color-dark: #ebedf0;
+    --wm-fill-color-darker: #e6e8eb;
+    --wm-fill-color-blank: #ffffff;
+
+    /* border */
+    --wm-border-width: 1px;
+    --wm-border-style: solid;
+    --wm-border-radius-base: 4px;
+    --wm-border-radius-small: 2px;
+    --wm-border-radius-round: 20px;
+    --wm-border-radius-circle: 100%;
+    --wm-border-color-hover: var(--wm-text-color-disabled);
+    --wm-border: var(--wm-border-width) var(--wm-border-style) var(--wm-border-color);
+
+    /* font */
+    --wm-font-size-extra-large: 20px;
+    --wm-font-size-large: 18px;
+    --wm-font-size-medium: 16px;
+    --wm-font-size-base: 14px;
+    --wm-font-size-small: 13px;
+    --wm-font-size-extra-small: 12px;
+    --wm-font-family: "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
+    --wm-font-weight-primary: 500;
+
+    /* disabled */
+    /* 禁用状态的背景色、文字色、边框颜色 */
+    --wm-disabled-bg-color: var(--wm-fill-color-light);
+    --wm-disabled-text-color: var(--wm-text-color-placeholder);
+    --wm-disabled-border-color: var(--wm-border-color-light);
+}
