@@ -1,12 +1,14 @@
 <template>
+    <h1>no plain</h1>
     <div>
-        <Button type = "success" size = "large">plain</Button>
-        <Button type = "warning" size = "small">warning</Button>
+        <Button type = "success">plain</Button>
+        <Button type = "warning">warning</Button>
         <Button type = "danger">danger</Button>
         <Button round type= "info">round</Button>
         <Button circle>circle</Button>
         <Button disabled>disabled</Button>
     </div>
+    <h1>plain</h1>
     <div>
     <Button type = "success" plain>plain</Button>
     <Button type = "warning" plain>warning</Button>
@@ -15,6 +17,10 @@
     <Button circle plain>circle</Button>
     <Button disabled>disabled</Button>
     </div>
+    <h1>size</h1>
+    <Button type = "success" size = "large">plain</Button>
+    <Button type = "success" >plain</Button>
+    <Button type = "success" size = "small">plain</Button>
 </template>
 
 <script setup lang="ts">
