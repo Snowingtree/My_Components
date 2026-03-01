@@ -1,0 +1,59 @@
+/* 基础的样式 */
+.wm-collapse-item{
+    --wm-collapse-border-color: var(--wm-border-color-light);
+    --wm-collapse-header-height: 48px;
+    --wm-collapse-header-bg-color: var(--wm-fill-color-blank);
+    --wm-collapse-header-text-color: var(--wm-text-color-primary);
+    --wm-collapse-header-font-size: 13px;
+    --wm-collapse-content-bg-color: var(--wm-fill-color-blank);
+    --wm-collapse-content-font-size: 13px;
+    --wm-collapse-content-text-color: var(--wm-text-color-primary);
+    --wm-collapse-disabled-text-color: var(--wm-disabled-text-color);
+    --wm-collapse-disabled-border-color: var(--wm-border-color-lighter);
+    /* border-top: 1px solid var(--wm-collapse-border-color);
+    border-bottom: 1px solid var(--wm-collapse-border-color); */
+}
+
+.wm-collapse-item__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: var(--wm-collapse-header-height);
+  line-height: var(--wm-collapse-header-height);
+  background-color: var(--wm-collapse-header-bg-color);
+  color: var(--wm-collapse-header-text-color);
+  cursor: pointer;
+  font-size: var(--wm-collapse-header-font-size);
+  font-weight: 500;
+  /* transition: border-bottom-color var(--wm-transition-duration); */
+  /* 主要用来移除元素获得焦点或被选中时默认显示的外轮廓线 */
+  outline: none;
+  border-bottom: 1px solid var(--wm-collapse-border-color);
+
+  &.is-disabled {
+    color: var(--wm-collapse-disabled-text-color);
+    cursor: not-allowed;
+    background-image: none;
+  }
+
+  &.is-active {
+    border-bottom-color: transparent;
+  }
+}
+
+.wm-collapse-item__content {
+  will-change: height;
+  background-color: var(--wm-collapse-content-bg-color);
+  overflow: hidden;
+  box-sizing: border-box;
+  font-size: var(--wm-collapse-content-font-size);
+  color: var(--wm-collapse-content-text-color);
+  border-bottom: 1px solid var(--wm-collapse-border-color);
+  padding-bottom: 25px;
+}
+
+.slide-enter-active,
+.slide-leave-active{
+    /* transition: 要过渡的属性 持续时间 速度曲线; */
+    transition: height 1s ease-in-out;
+}
