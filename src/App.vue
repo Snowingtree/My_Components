@@ -1,6 +1,6 @@
 <template>
     <!-- Button 组件展示 -->
-    <div>
+    <!-- <div>
         <h1>no plain</h1>
         <div>
             <Button type = "success">plain</Button>
@@ -32,9 +32,9 @@
             <Button type = "success" icon="user-secret">icon</Button>
         </div>
     </div>
-    <br><br>
+    <br><br> -->
     <!-- Collapse 组件展示 -->
-    <div>
+    <!-- <div>
         <Collapse v-model = "modelValue">
             <CollapseItem name="a">
                 <template v-slot:title>
@@ -53,15 +53,39 @@
             </CollapseItem>
         </Collapse>
     </div>
-    <br><br>
+    <br><br> -->
     <!-- Icon 组件展示 -->
-    <div>
+    <!-- <div>
         <Icon icon="user-secret" size="2xl" type="primary"/>
         <Icon icon="user-secret" size="2xl" type="info"/>
         <Icon icon="user-secret" size="2xl" type="success"/>
         <Icon icon="user-secret" size="2xl" type="danger"/>
         <Icon icon="user-secret" size="2xl" type="warning"/>
         <Icon icon="user-secret" size="2xl" color="yellow"/>
+    </div>
+    <br><br> -->
+    <!-- Alert 组件展示 -->
+    <div>
+        <Alert type="primary" title="Primary alert" icon="circle-check"></Alert>
+        <Alert type="success" title="Success alert"></Alert>
+        <Alert type="info" title="Info alert"></Alert>
+        <Alert type="warning" title="Warning alert"></Alert>
+        <Alert type="danger" title="Danger alert"></Alert>
+
+        <Alert center type="primary" title="Primary alert"></Alert>
+        <Alert center type="success" title="Success alert"></Alert>
+        <Alert center type="info" title="Info alert"></Alert>
+        <Alert center type="warning" title="Warning alert"></Alert>
+        <Alert center type="danger" title="Danger alert"></Alert>
+
+        <Alert type="primary" title="Primary alert" effect="dark"></Alert>
+        <Alert type="success" title="Success alert" effect="dark"></Alert>
+        <Alert type="info" title="Info alert" effect="dark"></Alert>
+        <Alert type="warning" title="Warning alert" effect="dark"></Alert>
+        <Alert type="danger" title="Danger alert" effect="dark" ref="alertRef">
+            <h1>你好</h1>
+            <div>hello word</div>
+        </Alert>
     </div>
 </template>
 
@@ -70,8 +94,10 @@
     import Collapse from './components/Collapse/Collapse.vue';
     import CollapseItem from './components/Collapse/CollapseItem.vue';
     import Icon from './components/Icon/Icon.vue';
+    import Alert from './components/Alert/Alert.vue';
 
     import type {NameType} from "./components/Collapse/types"
+    import type {Instance} from "./components/Alert/type"
     
     import {ref,onMounted} from "vue"
     import type { ButtonInstance } from './components/Button/types';
@@ -80,16 +106,17 @@
     // 如果给类型，想获取DOM节点很复杂，这里返回的是一个proxy代理
     // 如果给了类型，就能通过.ref直接获取DOM节点
     let _ref = ref<ButtonInstance | null>(null);
-    
     onMounted(()=>{
         // console.log(_ref.value?.ref)
     })
 
     const modelValue = ref<NameType[]>([]);
     // let size = ref<any>("2xl")
-    // setTimeout(()=>{
-    //     size.value = "2xr";
-    // },3000);
+
+    let alertRef = ref<Instance>();
+    setTimeout(()=>{
+        alertRef.value?.close();
+    },3000);
 
 
 </script>

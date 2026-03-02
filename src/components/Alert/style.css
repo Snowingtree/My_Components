@@ -1,0 +1,57 @@
+.wm-alert{
+    --wm-alert-bg-color:inherit;
+    --wm-alert-font-color:inherit;
+    --wm-icon-color:#a8abb2;
+    background-color: var(--wm-alert-bg-color);
+    font-size: inherit;
+    color: var(--wm-alert-font-color);
+    padding: 5px;
+    display: flex;
+    align-items: center;
+    width: 25%;
+    margin: auto;
+    padding-left: 10px;
+    position: relative;
+    & + & {
+        margin-bottom: 10px;
+        margin-top: 10px;
+    }
+
+    &.is-center{
+        justify-content: center;
+    }
+
+    .wm-alert__close {
+        position: absolute;
+        right: 5px;
+        color: var(--wm-icon-color);
+    }
+    .wm-alert__beforeicon{
+        margin-right:5px;
+    }
+}
+
+@each $val in primary,info,success,warning,danger{
+    .wm-alert--$(val){
+        --wm-alert-bg-color:var(--wm-color-$(val)-light-9);
+        --wm-alert-font-color:var(--wm-color-$(val));
+    }
+}
+
+/* 都满足 */
+@each $val in primary,info,success,warning,danger{
+    .wm-alert--$(val).wm-alert--dark{
+        --wm-alert-bg-color: var(--wm-color-$(val));
+        --wm-alert-font-color: #ffffff;
+        --wm-icon-color:var(--wm-alert-font-color);
+    }
+}
+.alert-leave-from{
+    opacity: 1;
+}
+.alert-leave-active {
+    transition: opacity var(--wm-transition-duration-slow) ease-in-out;
+}
+.alert-leave-to{
+    opacity: 0;
+}

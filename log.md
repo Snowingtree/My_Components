@@ -370,3 +370,34 @@ loading?:boolean,
 ### collapse
 
 这里主要是在header标题的右边添加一个向右的`>`,当内容展开的时候，自动旋转90度，折叠就旋转回去
+
+# Alert
+
+## 示例图
+
+![Alert组件](./docs/log/images/Alert组件.png)
+
+## 组件封装
+
+这是完全自己封装的一个组件，主要就是展示和关闭div，可以传入不同的参数
+
+```ts
+export interface AlertProps{
+    title?:string,
+    type?:"primary" | "success" | "warning" | "danger" | "info",
+    effect?:"light" | "dark",
+    closable?:boolean,
+    center?:boolean,
+}
+```
+
+且title是使用slot的，可以传入复杂的形式的文字，是否关闭（这里暂时没有使用），以及是亮色和暗色，就是颜色的深浅，文字是否居中，并且组件返回了close事件，让使用者在外面就能调用，可以实现定时关闭。
+
+```ts
+let alertRef = ref<Instance>();
+setTimeout(()=>{
+    alertRef.value?.close();
+},3000);
+```
+
+> **当然，还有之前的图标，但是现在的问题是，我不太知道怎么根据不同的type去赋值不一样的图标组件，目前支持的还是自己去传入icon而不是固定的**
