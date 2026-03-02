@@ -1,30 +1,38 @@
 <template>
     <!-- Button 组件展示 -->
-    <!-- <div>
-    <h1>no plain</h1>
     <div>
-        <Button type = "success">plain</Button>
-        <Button type = "warning">warning</Button>
-        <Button type = "danger">danger</Button>
-        <Button round type= "info">round</Button>
-        <Button circle>circle</Button>
+        <h1>no plain</h1>
+        <div>
+            <Button type = "success">plain</Button>
+            <Button type = "warning">warning</Button>
+            <Button type = "danger">danger</Button>
+            <Button round type= "info">round</Button>
+            <Button circle>circle</Button>
+            <Button disabled>disabled</Button>
+        </div>
+        <h1>plain</h1>
+        <div>
+        <Button type = "success" plain>plain</Button>
+        <Button type = "warning" plain>warning</Button>
+        <Button type = "danger" plain>danger</Button>
+        <Button round type= "info" plain>round</Button>
+        <Button circle plain>circle</Button>
         <Button disabled>disabled</Button>
+        </div>
+        <div>
+            <h1>size</h1>
+            <Button type = "success" size = "large">plain</Button>
+            <Button type = "success" >plain</Button>
+            <Button type = "success" size = "small">plain</Button>
+        </div>
+        <div>
+            <h1>icon</h1>
+            <Button type = "success" loading>icon</Button>
+            <Button type = "success" icon="arrow-up">icon</Button>
+            <Button type = "success" icon="user-secret">icon</Button>
+        </div>
     </div>
-    <h1>plain</h1>
-    <div>
-    <Button type = "success" plain>plain</Button>
-    <Button type = "warning" plain>warning</Button>
-    <Button type = "danger" plain>danger</Button>
-    <Button round type= "info" plain>round</Button>
-    <Button circle plain>circle</Button>
-    <Button disabled>disabled</Button>
-    </div>
-    <h1>size</h1>
-    <Button type = "success" size = "large">plain</Button>
-    <Button type = "success" >plain</Button>
-    <Button type = "success" size = "small">plain</Button>
-    </div> -->
-    
+    <br><br>
     <!-- Collapse 组件展示 -->
     <div>
         <Collapse v-model = "modelValue">
@@ -45,12 +53,24 @@
             </CollapseItem>
         </Collapse>
     </div>
+    <br><br>
+    <!-- Icon 组件展示 -->
+    <div>
+        <Icon icon="user-secret" size="2xl" type="primary"/>
+        <Icon icon="user-secret" size="2xl" type="info"/>
+        <Icon icon="user-secret" size="2xl" type="success"/>
+        <Icon icon="user-secret" size="2xl" type="danger"/>
+        <Icon icon="user-secret" size="2xl" type="warning"/>
+        <Icon icon="user-secret" size="2xl" color="yellow"/>
+    </div>
 </template>
 
 <script setup lang="ts">
     import Button from './components/Button/Button.vue';
     import Collapse from './components/Collapse/Collapse.vue';
     import CollapseItem from './components/Collapse/CollapseItem.vue';
+    import Icon from './components/Icon/Icon.vue';
+
     import type {NameType} from "./components/Collapse/types"
     
     import {ref,onMounted} from "vue"
@@ -64,10 +84,11 @@
     onMounted(()=>{
         // console.log(_ref.value?.ref)
     })
+
     const modelValue = ref<NameType[]>([]);
-    
+    // let size = ref<any>("2xl")
     // setTimeout(()=>{
-    //     modelValue.value = ["a","b","c"];
+    //     size.value = "2xr";
     // },3000);
 
 

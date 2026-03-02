@@ -104,4 +104,9 @@
     --wm-disabled-bg-color: var(--wm-fill-color-light);
     --wm-disabled-text-color: var(--wm-text-color-placeholder);
     --wm-disabled-border-color: var(--wm-border-color-light);
+
+    /* 动画时间 */
+    --wm-transition-duration:.3s;
+    --wm-transition-duration-fast:.2s;
+    --wm-transition-duration-slow:.5s;
 }

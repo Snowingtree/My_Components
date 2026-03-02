@@ -19,6 +19,8 @@ export interface ButtonProps{
     disabled?:boolean,//禁用
     nativeType?:ButtonNative,
     autofocus?:boolean,
+    icon?:string, //想要什么图标就传进来
+    loading?:boolean,
 }
 
 // 按钮的类型

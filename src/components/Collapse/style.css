@@ -38,6 +38,12 @@
 
   &.is-active {
     border-bottom-color: transparent;
+    .header-angle{
+        transform:rotate(90deg);
+    }
+  }
+  .header-angle{
+    transition: transform var(--wm-transition-duration-fast);
   }
 }
 
@@ -55,5 +61,5 @@
 .slide-enter-active,
 .slide-leave-active{
     /* transition: 要过渡的属性 持续时间 速度曲线; */
-    transition: height 1s ease-in-out;
+    transition: height var(--wm-transition-duration-slow) ease-in-out;
 }

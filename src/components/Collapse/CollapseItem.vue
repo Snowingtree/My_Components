@@ -15,7 +15,8 @@
         >
             <!-- 对于具名插槽，如果没有传入，那就就会自动渲染插槽里面的内容，例如title -->
             <slot name="title">{{ title }}</slot>
-        </div>
+            <Icon icon="angle-right" class="header-angle"></Icon>
+        </div > 
         <Transition name="slide"
             v-on="transitionEvents"
         >
@@ -40,6 +41,8 @@ export default {
     import type {CollapseItemProps} from "./types"
     import {collapsecontextkey} from "./types"
     
+    // icon组件
+    import Icon from "../Icon/Icon.vue";
     const props = defineProps<CollapseItemProps>()
 
     const collapsecontext = inject(collapsecontextkey);
@@ -74,7 +77,7 @@ export default {
             el.style.height = `${el.scrollHeight}px`;
             el.style.overflow = "hidden";
         },
-        Leave(el){
+        leave(el){
             el.style.height = "0px";
         },
         afterLeave(el){

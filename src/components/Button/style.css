@@ -148,6 +148,11 @@
         border-color: var(--wm-button-disabled-border-color);
     }
 
+    /* 让icon和后面的文字间隔远一点 */
+    [class*=wm-icon] + span{
+        margin-left: 6px;
+    }
+
 }
 
 /* 

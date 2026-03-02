@@ -307,3 +307,66 @@ const transitionEvents : Record<string,(el:HTMLElement)=>void> = {
 
 
 > 但是如果有`padding-bottom: 25px;`的时候，这个padding会很突兀的出现，而不是随着height变化而变化，所以这里将其用一层div包裹起来，此时子元素的height和padding都会被算为父元素的height，但是又会出现新的问题，此时子元素会先显示出完整的内容，动画正在慢慢的变化，此时给父元素一个`el.style.overflow = "hidden"`，对超出的部分进行隐藏即可，当然记得after的时候清空动画的残留。
+
+# Icon
+
+## 实例图
+
+![Icon组件](./docs/log/images/Icon组件.png)
+
+前面五个是根据之前的五个按钮类型进行配置的，最后的黄色是自定义的颜色，保证使用者能够自定义颜色。
+
+## 组件封装
+
+对于图标组件，其实就是在其他组件库的基础上封装自己的组件图标，下面的`FontAwesomeIcon`就是开源的组件库
+
+```ts
+<i class="wm-icon"
+    :class="{
+        [`wm-icon--${type}`]:type,
+        [`wm-icon--${color}`]:color,
+    }"
+    :style="ourColor"
+    >
+    <FontAwesomeIcon v-bind="filterProps"></FontAwesomeIcon>
+</i>
+```
+
+我们是在这个组件库的基础上进行二次开发的，所以开发的过程中需要兼容原生的属性，但是又要加入我们自定义的属性，保证和自己的组件库中的其他组件适配。
+
+```ts
+import type{ FontAwesomeIconProps } from '@fortawesome/vue-fontawesome';
+
+export interface IconProps extends FontAwesomeIconProps{ 
+    type?: "primary" | "success" | "warning" | "danger" | "info",
+    color?:string,
+}
+```
+
+最后就是和Collapse一样的问题，接受的参数来自于外部，所以需要通过监视属性或者计算属性，更新参数
+
+```ts
+// 现在的问题是，我在IconProps中添加了两个新的属性，是给外层的，而不是给内层的
+const props = defineProps<IconProps>();
+// 和Collapse一样的问题，外部传入的props只会在初始化的时候赋值，所以需要监视,这里也可以使用计算属性
+let filterProps = computed(()=>omit(props,["type","color"]));
+```
+
+## 给其他组件添加图标
+
+这里是给button组件和collapse组件添加图标
+
+### button
+
+其实就是加入两个新的属性
+
+```ts
+icon?:string, //想要什么图标就传进来
+loading?:boolean,
+```
+
+然后再span之前添加两个icon组件即可，第一个为loading，当loading为true不显示，且启用disabled，第二个是loading为false显示对应的icon组件
+
+### collapse
+
+这里主要是在header标题的右边添加一个向右的`>`,当内容展开的时候，自动旋转90度，折叠就旋转回去
