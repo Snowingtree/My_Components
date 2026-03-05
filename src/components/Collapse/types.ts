@@ -21,7 +21,7 @@ export const collapsecontextkey = Symbol("CollapseContext") as InjectionKey<Coll
 // 实现自己组件的v-model
 export interface CollapseProps{
     modelValue:NameType[],
-    accordion?:boolean,
+    accordion?:boolean,//accordion是判断当前的模式是一次只能打开一个还是能同时打开多个
 }
 export interface CollapesEmits{
     (e:"update:modelValue",value:NameType[]):void,

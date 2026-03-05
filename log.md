@@ -401,3 +401,335 @@ setTimeout(()=>{
 ```
 
 > **当然，还有之前的图标，但是现在的问题是，我不太知道怎么根据不同的type去赋值不一样的图标组件，目前支持的还是自己去传入icon而不是固定的**
+
+# 组件测试
+
+## 基础
+
+被测试的对象
+
+```ts
+import axios from 'axios'
+
+export function testFn(number: number, callback: Function) {
+  if (number > 10 ) {
+    callback(number)
+  }
+}
+
+export async function request() {
+  const { data } = await axios.get('fake.url')
+  return data
+}
+```
+
+测试属性的值
+
+```ts
+import {expect,test} from "vitest";
+
+test("test commion matcher",()=>{
+    const name = "wm";
+    expect(name).toBe("wm");
+})
+```
+
+测试函数调用情况
+
+1. `toHaveBeenCalledWith()`，后面传调用之后的参数时Vue组件在触发emits时候传入的参数
+2. `toHaveBeenCalled()`：函数调用的情况
+3. `toHaveBeenLastCalledWith()`：函数最后一次被调用传入的参数
+
+```ts
+import {  test, describe, vi, expect, Mocked } from 'vitest'
+import { testFn, request } from './utils'
+import axios from 'axios'
+
+
+//需要这一步，当vi对当前文件中的axios进行替换成自己的axios
+vi.mock('axios')
+//就是告诉当前的axios的类型是加上外壳的axios类型了
+const mockedAxios = axios as Mocked<typeof axios>
+
+                                                                        
+describe('functions', () => {
+    
+    //测试函数是否被调用，以及调用时传入的参数
+    test('create a mock function', () => {
+        //库函数自带的测试函数
+        const callback = vi.fn()
+        
+        //自己调用
+        testFn(12, callback)
+        
+        //判断函数是否被调用
+        expect(callback).toHaveBeenCalled()
+        //检查被调用时候的参数
+        expect(callback).toHaveBeenCalledWith(12)
+    })
+    
+    
+    //测试对象的方法是否的调用
+    test('spy on method', () => {
+        const obj = {
+          getName: () => 1
+        }
+        
+        //库函数自带的方法，第一个参数对Object，第二个参数为测试的属性
+        const spy = vi.spyOn(obj, 'getName')
+        
+        obj.getName()
+        //判断对象方法是否被调用
+        expect(spy).toHaveBeenCalled()
+    
+        obj.getName()
+        //判断对象方法被调用的次数
+        expect(spy).toHaveBeenCalledTimes(2)
+    })
+    
+    //使用vi库中的mock，对网络请求的返回值进行替换，替换成我们mock的值
+    test('mock third party module', async () => {
+        //mockedAxios.get.mockImplementation(() => Promise.resolve({ data: 123 }))
+        mockedAxios.get.mockResolvedValue({ data: 123 })
+         
+        const result = await request()
+        
+        expect(result).toBe(123)
+    })
+})
+```
+
+## 按钮Button测试
+
+> 测试代码：
+
+关于查找属性，有两个方法，get和find：
+
+- get()：强制查找，找不到就报错，找到就返回包装器对象，直接可以链式调用
+- find()：温和查找，找不到不报错，找到和上面一样返回包装器对象，找不到也会返回一个空的包装器对象，需要判断 `exists()` 是否为空再进行链式调用
+
+常用的方法:
+
+1. `toHaveProperty()` 用于检查对象 / 数组是否存在指定属性 / 索引
+
+2. `toContain()` 用于检查数组 / 字符串是否包含指定值。
+
+3. `attributes()`直接获取DOM节点的属性，包括class，disable以及自定义的属性
+
+   - ```ts
+     // 方式1：不带参数 → 返回元素所有属性的键值对对象
+     const allAttrs = wrapper.get('button').attributes();
+     
+     // 方式2：带属性名参数 → 返回该属性的具体值（不存在则返回 undefined）
+     const classAttr = wrapper.get('button').attributes('class');
+     ```
+
+4. `toBeDefined()`：判断值是否定义，定义就返回True
+
+5. `element`: `wrapper.get("button").element.disabled`获取原生DOM节点，然后判断属性是否存在`toBeDefined()`
+
+6. `wrapper.emitted()`：会拿到所有的事件
+
+7. `onchange.mockClear()`：清空事件所有的数据和调用情况
+
+```ts
+import {describe,test,expect} from "vitest"
+import Button from "./Button.vue"
+import {mount} from "@vue/test-utils"
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'  //组件名称
+import Icon from "../Icon/Icon.vue"
+describe("Button.vue",()=>{
+    test("basic button",()=>{
+        const wrapper = mount(Button,{
+            props:{
+                type:"danger",
+            },
+            slots:{
+                default:"button"
+            }
+        })
+        console.log(wrapper.html());
+
+        // 按钮组件没有交互功能，所以主要看样式是否写入了
+        // wrapper.classes() 可以获取组件上所有的类
+
+        expect(wrapper.classes()).toContain("wm-button--danger")
+
+        // 以及slot的内容是否呈现了
+        // get里面的内容是css选择器，然后通过test获取内容
+        expect(wrapper.get('button').text()).toBe("button")
+           
+        // 测试事件
+        // 使用trigger触发事件
+        wrapper.get("button").trigger("click");
+        // 通过emitted就可以看到所有被触发的事件
+        console.log(wrapper.emitted());
+        // toHaveProperty判断对象中是否有该属性
+        expect(wrapper.emitted()).toHaveProperty("click")
+    }),
+    test("disable",()=>{
+        const wrapper = mount(Button,{
+            props:{
+                type:"danger",
+                disabled:true
+            },
+            slots:{
+                default:"disabled"
+            }
+        })
+        expect(wrapper.get("button").attributes("disabled")).toBeDefined()
+        console.log(wrapper.get("button").element.disabled)
+
+        // 既然被disabled，那么就不会发送事件
+        wrapper.get("button").trigger("click");
+        expect(wrapper.emitted()).not.toHaveProperty("click")
+    }),
+
+    // 开始测试icon组件图标
+    test("Icon",()=>{
+        // 由于我们不希望引入第三方的库，而是使用vitest自带的模拟功能
+        const wrapper = mount(Button,{
+            props:{
+                icon:"arrow-up"
+            },
+            slots:{
+                default:"icon"
+            },
+            global:{
+                stubs:["FontAwesomeIcon"]
+            }
+        });
+        // console.log(wrapper.html());
+        const iconElement = wrapper.findComponent(FontAwesomeIcon);
+        expect(iconElement.exists()).toBe(true); 
+        expect(iconElement.attributes("icon")).toBe("arrow-up");
+    })
+
+    // 测试loading属性
+    test("loading",()=>{
+        // 由于我们不希望引入第三方的库，而是使用vitest自带的模拟功能
+        const wrapper = mount(Button,{
+            props:{
+                loading:true,
+            },
+            slots:{
+                default:"loading"
+            },
+            global:{
+                stubs:["Icon"]
+            }
+        });
+        // console.log(wrapper.html());
+        
+        //这是获取wrapper里面的一个组件，且由于global设置的stubs，当前Icon组件是被模拟的
+        //但是传入的样式和属性还是有的
+        const iconElement = wrapper.findComponent(Icon);
+        expect(iconElement.exists()).toBe(true); 
+        expect(iconElement.attributes("icon")).toBe("spinner");
+        expect(wrapper.attributes("disabled")).toBeDefined();
+    })
+
+
+})
+```
+
+配置文件
+
+```ts
+//vitest.config.ts
+
+/// <reference types="vitest/config" />
+// 上面这个配置是最新的配置方法
+
+import { defineConfig } from 'vite'
+import vue from '@vitejs/plugin-vue'
+import vueDevTools from 'vite-plugin-vue-devtools'
+
+// https://vite.dev/config/
+export default defineConfig({
+  plugins: [
+    vue(),
+    vueDevTools(),
+  ],
+  test:{
+        globals:true,
+        // 在js中模拟DOM树
+        environment:"jsdom"
+  }
+})
+```
+
+## 列表Collapse测试
+
+由于我们封装的组件Collapse使用slots插入CollapseItem项实现的，如果在slots的default中直接写HTML字符串，就会被当作字符串解析，而不是对应的组件，所以需要引入Vnode。
+
+> 常用的方法
+>
+> 1. `isVisible()`，判断当前的节点是否可见，前提是当前的组件是使用`v-show`进行判断是否可见的
+
+```ts
+import {describe,test,expect} from "vitest"
+import {h} from "vue"
+import {mount} from "@vue/test-utils"
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'  //组件名称
+import Icon from "../Icon/Icon.vue"
+import CollapseItem from "./CollapseItem.vue"
+import Collapse from "./Collapse.vue"
+import { head } from "lodash-es"
+describe("Collapse.vue",()=>{
+    test("basic",async ()=>{
+        const wrapper = mount(()=>
+            <Collapse modelValue={['a']}>
+                <CollapseItem name="a" title="nice title a item a">
+                    <div>this is content b bbb</div>
+                </CollapseItem>
+
+                <CollapseItem name="b" title="nice title b item b">
+                    <div>this is content b bbb</div>
+                </CollapseItem>
+                
+                <CollapseItem name="c" title="nice title c item c" disabled>
+                    <div>this is content c ccc</div>
+                </CollapseItem>
+            </Collapse>
+            ,
+            {
+                global:{
+                    stubs:['Icon']
+                },
+                attachTo:document.body,
+            }
+        );
+        const headers = wrapper.findAll(".wm-collapse-item__header");
+        const contents = wrapper.findAll(".wm-collapse-item__content");
+
+        // 长度
+        expect(headers.length).toBe(3);
+        expect(contents.length).toBe(3);
+
+        // 文本
+        let firstHeader = headers[0];
+        let thirdHeader = headers[2];
+        expect(firstHeader?.text()).toBe("nice title a item a")
+
+        // 内容
+        let firstContent = contents[0];
+        let secondContent = contents[1];
+        let thirdContent = contents[2];
+        expect(firstContent?.isVisible()).toBeTruthy();
+        expect(secondContent?.isVisible()).toBeFalsy();
+        expect(firstContent?.text()).toBe("this is content b bbb")
+
+        // Vue的DOM更新是异步的，不是立即执行，所以需要异步等待事件执行完毕
+        await firstHeader?.trigger("click");
+        expect(firstContent?.isVisible()).toBeFalsy();
+
+        // 测试disabled
+        await thirdHeader?.trigger("click");
+        expect(thirdContent?.isVisible()).toBeFalsy();
+        expect(thirdHeader?.classes()).toContain("is-disabled");
+        
+    })
+})
+```
+

@@ -8,7 +8,7 @@
         'is-circle':circle,
         'is-round':round,
         'is-disabled':disabled,
-        'is- loading':loading,
+        'is-loading':loading,
     }"
     :disabled = "disabled || loading" 
     :autofocus = "autofocus"
