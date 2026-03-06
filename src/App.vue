@@ -65,7 +65,7 @@
     </div>
     <br><br> -->
     <!-- Alert 组件展示 -->
-    <div>
+    <!-- <div>
         <Alert type="primary" title="Primary alert" icon="circle-check"></Alert>
         <Alert type="success" title="Success alert"></Alert>
         <Alert type="info" title="Info alert"></Alert>
@@ -86,6 +86,13 @@
             <h1>你好</h1>
             <div>hello word</div>
         </Alert>
+    </div> -->
+    <!-- Tooltip 组件展示 -->
+    <div>
+        <Tooltip content="hello" :popOptions="poppperOption" :trigger="trigger" ref="tooltip">
+            <button>你好</button>
+            <template v-slot:content></template>
+        </Tooltip>
     </div>
 </template>
 
@@ -95,17 +102,22 @@
     import CollapseItem from './components/Collapse/CollapseItem.vue';
     import Icon from './components/Icon/Icon.vue';
     import Alert from './components/Alert/Alert.vue';
+    import Tooltip from './components/Tooltip/Tooltip.vue';
 
     import type {NameType} from "./components/Collapse/types"
     import type {Instance} from "./components/Alert/type"
     
     import {ref,onMounted} from "vue"
     import type { ButtonInstance } from './components/Button/types';
+    import type { TooltipInstance } from './components/Tooltip/type';
+
+    import type {Options} from "@popperjs/core"
 
     // 为什么这里要给类型呢？
     // 如果给类型，想获取DOM节点很复杂，这里返回的是一个proxy代理
     // 如果给了类型，就能通过.ref直接获取DOM节点
     let _ref = ref<ButtonInstance | null>(null);
+    let tooltip = ref<TooltipInstance | null>(null);
     onMounted(()=>{
         // console.log(_ref.value?.ref)
     })
@@ -113,11 +125,22 @@
     const modelValue = ref<NameType[]>([]);
     // let size = ref<any>("2xl")
 
-    let alertRef = ref<Instance>();
-    setTimeout(()=>{
-        alertRef.value?.close();
-    },3000);
+    // let alertRef = ref<Instance>();
+    let trigger = ref<"click" | "hover">("click")
+    // setTimeout(()=>{
+    //     // alertRef.value?.close();
+    //     trigger.value = "click"
+    // },3000);
 
+    // setTimeout(()=>{
+    //     // alertRef.value?.close();
+    //     trigger.value = "hover"
+    // },6000);
+
+
+    let poppperOption = ref<Partial<Options>>({
+        placement:"bottom",
+    })
 
 </script>
 
