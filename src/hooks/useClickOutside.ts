@@ -5,7 +5,7 @@ export const useClickOutside = (elementRef:Ref<undefined | HTMLElement>,callback
     const handler = (e:MouseEvent)=>{
         if(elementRef.value && e.target){
             if(!elementRef.value.contains(e.target as HTMLElement)){
-                console.log(elementRef.value.contains(e.target as HTMLElement))
+                // console.log(elementRef.value.contains(e.target as HTMLElement))
                 callback();
             }
         }

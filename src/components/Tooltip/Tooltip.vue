@@ -48,8 +48,8 @@ export default {
         placement:"bottom",
         trigger:"hover",
         transition:"fade",
-        openDelay:1000,
-        closeDelay:1000
+        openDelay:0,
+        closeDelay:0
     })
     const popOptions = computed(()=>{
         return {
@@ -88,12 +88,11 @@ export default {
     // 开关
     const open = ()=>{
         isOpen.value = true;
-        // 发送事件？为什么呢？
+        // 
         emits("visible-change",isOpen.value);
     }
     const close = ()=>{
         isOpen.value = false;
-        // 发送事件？为什么呢？
         emits("visible-change",isOpen.value);
     }
     

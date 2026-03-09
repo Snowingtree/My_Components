@@ -88,11 +88,26 @@
         </Alert>
     </div> -->
     <!-- Tooltip 组件展示 -->
-    <div>
+    <!-- <div>
         <Tooltip content="hello" :popOptions="poppperOption" :trigger="trigger" ref="tooltip">
-            <button>你好</button>
+            <button>click</button>
             <template v-slot:content></template>
         </Tooltip>
+    </div> -->
+    <!-- Dropdown组件展示 -->
+    <div>
+        <Dropdown 
+            content="hello" 
+            :popOptions="poppperOption" 
+            :trigger="trigger" 
+            ref="dropdown" 
+            :menu="menu"
+            @visible-change="(e)=>console.log('visible-change',e)"
+            @select="(e)=>console.log('select',e)"
+            >
+            <button>你好</button>
+            <template v-slot:content></template>
+        </Dropdown>
     </div>
 </template>
 
@@ -103,15 +118,17 @@
     import Icon from './components/Icon/Icon.vue';
     import Alert from './components/Alert/Alert.vue';
     import Tooltip from './components/Tooltip/Tooltip.vue';
+    import Dropdown from './components/Dropdown/Dropdown.vue';
 
     import type {NameType} from "./components/Collapse/types"
     import type {Instance} from "./components/Alert/type"
-    
-    import {ref,onMounted} from "vue"
+    import type { DropdownInstance } from './components/Dropdown/type';
+    import {ref,onMounted,h, type VNode} from "vue"
     import type { ButtonInstance } from './components/Button/types';
     import type { TooltipInstance } from './components/Tooltip/type';
 
     import type {Options} from "@popperjs/core"
+    import type {menuOptions} from "./components/Dropdown/type"
 
     // 为什么这里要给类型呢？
     // 如果给类型，想获取DOM节点很复杂，这里返回的是一个proxy代理
@@ -137,10 +154,19 @@
     //     trigger.value = "hover"
     // },6000);
 
-
+    let dropdown = ref<DropdownInstance>()
     let poppperOption = ref<Partial<Options>>({
         placement:"bottom",
     })
+    let menu = ref<menuOptions[]>([
+        {label:h("b","this is a node"),key:"1"},
+        {label:"2",key:"2"},
+        {label:"3",key:"3",disabled:true},
+        {label:"4",key:"4",divided:true},
+    ])
+    setTimeout(()=>{
+        dropdown.value?.show();
+    },2000)
 
 </script>
 

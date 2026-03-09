@@ -755,3 +755,33 @@ describe("Collapse.vue",()=>{
 
    - `vi.useFakeTimers()`:模拟 / 替换 JavaScript 原生定时器，目的是让定时器相关的测试不再 “真的等待时间”，而是手动控制时间流逝，
    - `vi.runAllTimers()`：我们的展示框有延迟，但是在测试里面，它不会延迟，所以需要使用这个api，立即执行所有待触发的定时器回调
+
+# Dropdown
+
+> 今天关键的就是让其支持vNode的写法，即当lable传入的是h()函数生成的Vnode对象，如果正常渲染，那么渲染的就是字符串，但是如果经过一个组件，其中这个组件使用setup返回这个虚拟节点的话，那么就能生成HTML对应的结构
+
+```ts
+import { defineComponent } from "vue";
+
+const RenderVnode = defineComponent({
+    props:{
+        vNode:{
+            type:[String,Object],
+            required:true
+        }
+    },
+    setup(props){
+        return ()=>props.vNode;
+    }
+})
+export default RenderVnode
+```
+
+- 如果 `props.vNode` 是 h () 创建的 VNode 对象，`setup` 返回的渲染函数会直接把这个 VNode 交给 Vue；Vue 渲染器会解析 VNode 的`type`（标签名）、`props`（属性 / 事件）、`children`（子节点），生成对应的真实 HTML；
+- 如果 `props.vNode` 是 字符串时 ，Vue 底层在处理渲染函数返回值时，自动把字符串转换成文本类型 VNode。
+
+```ts
+//组件中使用：
+<RenderVnode :vNode="item.label"></RenderVnode>
+```
+
