@@ -95,7 +95,7 @@
         </Tooltip>
     </div> -->
     <!-- Dropdown组件展示 -->
-    <div>
+    <!-- <div>
         <Dropdown 
             content="hello" 
             :popOptions="poppperOption" 
@@ -108,6 +108,10 @@
             <button>你好</button>
             <template v-slot:content></template>
         </Dropdown>
+    </div> -->
+    <!-- Message组件展示 -->
+    <div>
+        <button @click="createMessageItem">add</button>
     </div>
 </template>
 
@@ -119,6 +123,7 @@
     import Alert from './components/Alert/Alert.vue';
     import Tooltip from './components/Tooltip/Tooltip.vue';
     import Dropdown from './components/Dropdown/Dropdown.vue';
+    import Message from './components/Message/Message.vue';
 
     import type {NameType} from "./components/Collapse/types"
     import type {Instance} from "./components/Alert/type"
@@ -130,20 +135,18 @@
     import type {Options} from "@popperjs/core"
     import type {menuOptions} from "./components/Dropdown/type"
 
+
     // 为什么这里要给类型呢？
     // 如果给类型，想获取DOM节点很复杂，这里返回的是一个proxy代理
     // 如果给了类型，就能通过.ref直接获取DOM节点
-    let _ref = ref<ButtonInstance | null>(null);
-    let tooltip = ref<TooltipInstance | null>(null);
-    onMounted(()=>{
-        // console.log(_ref.value?.ref)
-    })
+    // let _ref = ref<ButtonInstance | null>(null);
+    // let tooltip = ref<TooltipInstance | null>(null);
 
-    const modelValue = ref<NameType[]>([]);
+    // const modelValue = ref<NameType[]>([]);
     // let size = ref<any>("2xl")
 
     // let alertRef = ref<Instance>();
-    let trigger = ref<"click" | "hover">("click")
+    // let trigger = ref<"click" | "hover">("click")
     // setTimeout(()=>{
     //     // alertRef.value?.close();
     //     trigger.value = "click"
@@ -154,19 +157,29 @@
     //     trigger.value = "hover"
     // },6000);
 
-    let dropdown = ref<DropdownInstance>()
-    let poppperOption = ref<Partial<Options>>({
-        placement:"bottom",
-    })
-    let menu = ref<menuOptions[]>([
-        {label:h("b","this is a node"),key:"1"},
-        {label:"2",key:"2"},
-        {label:"3",key:"3",disabled:true},
-        {label:"4",key:"4",divided:true},
-    ])
-    setTimeout(()=>{
-        dropdown.value?.show();
-    },2000)
+    // let dropdown = ref<DropdownInstance>()
+    // let poppperOption = ref<Partial<Options>>({
+    //     placement:"bottom",
+    // })
+    // let menu = ref<menuOptions[]>([
+    //     {label:h("b","this is a node"),key:"1"},
+    //     {label:"2",key:"2"},
+    //     {label:"3",key:"3",disabled:true},
+    //     {label:"4",key:"4",divided:true},
+    // ])
+    // setTimeout(()=>{
+    //     dropdown.value?.show();
+    // },2000)
+
+    // Message测试代码
+    import type {MessageProps} from "./components/Message/type"
+    import {createMessage} from "./components/Message/method"
+
+    
+
+    function createMessageItem(){
+        createMessage({message:"你好",duration:0,type:"warning",showClose:true})
+    }
 
 </script>
 

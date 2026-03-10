@@ -785,3 +785,57 @@ export default RenderVnode
 <RenderVnode :vNode="item.label"></RenderVnode>
 ```
 
+# Message
+
+## 动态挂载
+
+> 封装Message组件，有意思的是，这个组件不是直接的展示在页面上的，而是通过其他组件点击，然后在创建实例，最后挂载到页面上的，所以这里就需要动态的挂载组件，第一想到的就是App的create(App)，最后使用`.mount`挂载到对应的DOM节点上，但是这个太重了，这里使用`render函数[render(vnode,DOM节点)]`，通过这样，直接挂载到`document.body`上去，直接使用函数`appendChild`。代码如下
+
+```ts
+//method.ts
+import {render,h} from "vue"
+import type { MessageProps } from "./type";
+import Message from "./Message.vue"
+
+export const messageRender = (props:MessageProps)=>{
+    const contain = document.createElement("div");
+    const vnode = h(Message,props);
+    render(vnode,contain);
+    document.body.appendChild(contain)
+}
+```
+
+> 还有更有意思的，函数参数的传递，先从外部传入参数，在messageRender中添加销毁的函数，最后再传入Message组件内部
+
+```ts
+export const messageRender = (props:createMessageProps)=>{
+    const contain = document.createElement("div");
+
+    let destroy = ()=>{
+        render(null,contain);
+    }
+    let newProps = {
+        ...props,
+        destroy:destroy,
+    }
+    const vnode = h(Message,newProps);
+    render(vnode,contain);
+
+    // ! 加在后面是ts中的非空断言操作符，表示当前变量不会是null或者undefined
+    document.body.appendChild(contain.firstElementChild!)
+}
+```
+
+`createMessageProps`中使用`Omit`忽略掉了destroy，再在函数内部补充上，最后传入Message内部
+
+## 计算位置
+
+> 这个组件的一个难点就是，如何的去计算其他组件的一个位置
+
+这里计算位置主要依靠三个值：
+
+1. 自身的高度，使用`messageRef.value!.getBoundingClientRect().height; `获取
+2. 与其他元素的间隔`offSet`,自己初始化设置
+3. 上一个元素的底部`根据自身的高度+间隔+上一个元素的底部`计算而来
+
+所以关键就是如果再当前组件中获取上一个元素的`底部位置`，这里使用`definedExpose`把当前元素的底部位置暴露出去，然后这个信息就会出现在当前组件的实例中`instance`，可以在vnode中获取`definedExpose`的数据
