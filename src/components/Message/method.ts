@@ -6,6 +6,8 @@ import type { MessageInfo } from "./type";
 
 import {useZIndex} from "./../../hooks/useZIndex"
 
+// 这里需要使用响应式的数据，不然在getLastInstanceBottom的时候，上一个实例可能没有push进去
+// 响应式能够保证当上一个实例被push进去的时候,数据状态会更新
 let instances:MessageInfo[] = shallowReactive([]);
 let seed = 1;
 export const createMessage = (props:createMessageProps)=>{

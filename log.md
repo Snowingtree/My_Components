@@ -826,16 +826,52 @@ export const messageRender = (props:createMessageProps)=>{
 }
 ```
 
-`createMessageProps`中使用`Omit`忽略掉了destroy，再在函数内部补充上，最后传入Message内部
+`createMessageProps`中使用`Omit`忽略掉了destroy，再在函数内部补充上，最后使用`h(Message,newProps)`传入Message内部
 
-## 计算位置
+## 计算位置（核心）
 
 > 这个组件的一个难点就是，如何的去计算其他组件的一个位置
 
 这里计算位置主要依靠三个值：
 
 1. 自身的高度，使用`messageRef.value!.getBoundingClientRect().height; `获取
+
+   - ```ts
+     //这里需要注意，高度的设置需要等待组件渲染完毕，所以需要使用await nextTick()来等待DOM更新
+     onMounted(async ()=>{
+         visible.value = true;
+     
+         await nextTick(); //等待DOM节点更新之后再执行下面的逻辑
+         height.value = messageRef.value!.getBoundingClientRect().height; 
+     })这里需要
+     ```
+
 2. 与其他元素的间隔`offSet`,自己初始化设置
 3. 上一个元素的底部`根据自身的高度+间隔+上一个元素的底部`计算而来
 
-所以关键就是如果再当前组件中获取上一个元素的`底部位置`，这里使用`definedExpose`把当前元素的底部位置暴露出去，然后这个信息就会出现在当前组件的实例中`instance`，可以在vnode中获取`definedExpose`的数据
+所以关键就是如果再当前组件中获取上一个元素的`底部位置`，这里使用`definedExpose`把当前元素的底部位置暴露出去，然后这个信息就会出现在当前组件的实例中`instance`，可以在vnode中获取`definedExpose`的数据。
+
+```ts
+// 返回上一个Message的bottom的位置信息
+export const getLastInstanceBottom = (id:string)=>{
+    const idx = instances.findIndex((item)=>item.id === id);
+    if(idx <= 0){
+        // 说明是第一项
+        return 0;
+    }else{
+        const prev = instances[idx - 1];
+        //由于每一个组件都会暴露bottomOffset供给下一个组件使用，所以这里直接从实例Instance实例数组中取出上一个的实例
+        //直接拿到下边界的位置
+        return prev!.vm.exposed!.bottomOffset.value
+    }
+}
+```
+
+> 关于Message组件的两个hook
+>
+> 1. `useZIndex.ts`：其实就是累加一个ZIndex，我感觉没必要
+> 2. `useEventListener.ts`，动态的给DOM绑定事件，当传入的DOM式响应式，还会先解绑更新前的事件，再帮绑定更新后的新的事件到DOM上。`useEventListener(document,"keyup",keydown);`
+
+
+
+> 总结：我觉的这个Message组件的关键就是计算位置，如何的去获取上一个组件的bottom的位置，其次就是关于如何使用VNode去动态的创建组件，然后挂载到对应的DOM下面`method.ts`详细解释，以及如何的从外部向Vnode中传入参数，如何从组件内部暴露出参数然后通过Vnode去获取。

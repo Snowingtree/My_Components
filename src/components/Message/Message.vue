@@ -36,7 +36,6 @@ export default {
     import {computed, h, nextTick, onMounted, ref, watch} from "vue"
     import {getLastInstanceBottom} from "./method"
     import useEventListener from "../../hooks/useEventListener"
-import { start } from "@popperjs/core";
 
     const props = withDefaults(defineProps<MessageProps>(),{
         type:"info",
