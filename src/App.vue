@@ -110,8 +110,12 @@
         </Dropdown>
     </div> -->
     <!-- Message组件展示 -->
-    <div>
+    <!-- <div>
         <button @click="createMessageItem">add</button>
+    </div> -->
+    <!--  -->
+    <div>
+        
     </div>
 </template>
 

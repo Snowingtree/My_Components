@@ -66,5 +66,10 @@ export const getLastInstanceBottom = (id:string)=>{
     }
 }
 
-// 将暴露出来的visible设置成false
+// 添加实例，关闭所有的实例
+export const closeAllInstance = ()=>{
+    for(let i of instances){
+        i.destroy();
+    }
+}
 
