@@ -1,5 +1,11 @@
 {
   "files": [],
+    "compilerOptions": {
+    "baseUrl": "./",  // 设置基础路径为项目根目录
+    "paths": {
+      "@/*": ["src/*"]  // 配置路径别名，@指向src目录
+    }
+  },
   "references": [
     {
       "path": "./tsconfig.node.json"
@@ -9,4 +15,3 @@
     }
   ]
 }
- 

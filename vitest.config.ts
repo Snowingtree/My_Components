@@ -5,6 +5,7 @@ import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import vueDevTools from 'vite-plugin-vue-devtools'
 import vueJsx from '@vitejs/plugin-vue-jsx'
+import { fileURLToPath } from 'node:url'
 
 // https://vite.dev/config/
 export default defineConfig({
@@ -17,5 +18,10 @@ export default defineConfig({
         globals:true,
         // 在js中模拟DOM树
         environment:"jsdom"
+  },
+  resolve:{
+    alias:{
+        "@":fileURLToPath(new URL('./src',import.meta.url)),
+    }
   }
 })

@@ -32,7 +32,8 @@ export default {
 <script lang="ts"  setup>
     import type {MessageProps} from "./type"
     import RenderVnode from "../common/RenderVnode";
-    import Icon from "../Icon/Icon.vue";
+    // import Icon from "../Icon/Icon.vue";
+    import Icon from "@/components/Icon/Icon.vue"
     import {computed, h, nextTick, onMounted, ref, watch} from "vue"
     import {getLastInstanceBottom} from "./method"
     import useEventListener from "../../hooks/useEventListener"
