@@ -895,3 +895,6 @@ export const getLastInstanceBottom = (id:string)=>{
 > 1. v-model 的实现原理
 > 2. `blur`的触发时间是在 `mousedown`之后,`mouseup`之前触发
 
+# Switch
+
+关于Switch主要是实现开关的动态移动，这章节主要是实现如何用input的checkbox和div绑定，实现ui和组件的事件传递，没有什么新的知识，主要是ui的设计，确实有意思。

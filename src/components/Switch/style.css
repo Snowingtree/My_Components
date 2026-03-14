@@ -1,0 +1,126 @@
+.wm-switch{
+    /* 开关背景和边框的颜色 */
+    --wm-switch-on-color: var(--wm-color-primary);
+    --wm-switch-off-color: var(--wm-border-color);
+    --wm-switch-on-border-color: var(--wm-color-primary);
+    --wm-switch-off-border-color: var(--wm-border-color);
+}
+.wm-switch{
+    display: inline-flex;
+    align-items: center;    
+    font-size: 14px;
+    line-height: 20px;
+    height: 32px;
+    /* border: 1px solid red; */
+    .wm-switch__input {
+        position: absolute;
+        width: 0;
+        height: 0;
+        opacity: 0;
+        margin: 0; 
+    }
+    /* 当元素获得可聚焦可见焦点时，其兄弟元素显示外边框 */
+    &:focus-visible {
+        & ~ .wm-switch__core {
+            outline: 2px solid var(--wm-switch-on-color);
+            outline-offset: 1px;
+        }
+    }
+    &.is-checked {
+        .wm-switch__core {
+            border-color:var(--wm-switch-on-border-color);
+            background-color: var(--wm-switch-on-color);
+        }
+        .wm-switch__core-action {
+            left: calc(100% - 17px);
+        }
+        .wm-switch__core-inner {
+            padding: 0 18px 0 4px;
+        }
+    }
+
+}
+.wm-switch__core {
+    display: inline-flex;
+    align-items: center;
+    position: relative;
+    height: 20px;
+    min-width: 40px;
+    border: 1px solid var(--wm-switch-off-border-color);
+    outline: none;
+    border-radius: 10px;
+    box-sizing: border-box;
+    background: var(--wm-switch-off-color);
+    cursor: pointer;
+    transition: border-color var(--wm-transition-duration),background-color var(--wm-transition-duration);
+
+    .wm-switch__core-action {
+        position: absolute;
+        left: 1px;
+        border-radius: var(--wm-border-radius-circle);
+        width: 16px;
+        height: 16px;
+        background-color: var(--wm-color-white);
+        transition: all var(--wm-transition-duration);
+    }
+    .wm-switch__core-inner {
+        width: 100%;
+        transition: all var(--wm-transition-duration);
+        height: 16px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
+        padding: 0 4px 0 18px;
+        .wm-switch__core-inner-text {
+            font-size: 12px;
+            color: var(--wm-color-white);
+            user-select: none;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+    }
+}
+
+/* 下面是尺寸相关 */
+.wm-switch--large {
+  font-size: 14px;
+  line-height: 24px;
+  height: 40px;
+  .wm-switch__core {
+    min-width: 50px;
+    height: 24px;
+    border-radius: 12px;
+    .wm-switch__core-action {
+      width: 20px;
+      height: 20px;
+    }
+  }
+  &.is-checked {
+    .wm-switch__core .wm-switch__core-action {
+      left: calc(100% - 21px);
+      color: var(--wm-switch-on-color);
+    }
+  }
+}
+.wm-switch--small {
+  font-size: 12px;
+  line-height: 16px;
+  height: 24px;
+  .wm-switch__core {
+    min-width: 30px;
+    height: 16px;
+    border-radius: 8px;
+    .wm-switch__core-action {
+      width: 12px;
+      height: 12px;
+    }
+  }
+  &.is-checked {
+    .wm-switch__core .wm-switch-core-action {
+      left: calc(100% - 13px);
+      color: var(--wm-switch-on-color);
+    }
+  }
+}

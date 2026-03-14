@@ -114,8 +114,12 @@
         <button @click="createMessageItem">add</button>
     </div> -->
     <!-- Input 组件 -->
-    <div>
+    <!-- <div>
         <Input v-model="test" placeholder="密码文本框，可以切换" showPassword/>
+    </div> -->
+    <!-- Switch 组件 -->
+    <div>
+        <Switch activeValue="right" inactiveValue="left"></Switch>
     </div>
 </template>
 
@@ -183,8 +187,11 @@
     // }
     
     // Input测试代码
-    import Input from './components/Input/Input.vue';
-    let test = ref("")
+    // import Input from './components/Input/Input.vue';
+    // let test = ref("")
+
+    // Switch组件测试
+    import Switch from './components/Switch/Switch.vue';
 </script>
 
 <style scoped>
