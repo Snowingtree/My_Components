@@ -7,9 +7,7 @@ import { library } from '@fortawesome/fontawesome-svg-core'    //用来管理引
 import { fas } from '@fortawesome/free-solid-svg-icons'    //引入的图标名称
 
 import {
-  AntDesignContainer,
   ElementPlusContainer,
-  NaiveUIContainer,
 } from '@vitepress-demo-preview/component';
 
 import '@vitepress-demo-preview/component/dist/style.css';

@@ -26,16 +26,17 @@ export default defineConfig({
 
     sidebar: [
         {
-        text: 'Examples',
-        items: [
-            { text: 'Markdown Examples', link: '/markdown-examples' },
-            { text: 'Runtime API Examples', link: '/api-examples' }
-        ]
+            text: 'Examples',
+            items: [
+                { text: 'Markdown Examples', link: '/markdown-examples' },
+                { text: 'Runtime API Examples', link: '/api-examples' }
+            ]
         },
         {
             text: 'Basic',
             items: [
-            { text: 'Button', link: '/Components/Button' },
+                { text: 'Button', link: '/Components/Button' },
+                { text: 'Input', link: '/Components/Input' },
             ]
         }
     ],

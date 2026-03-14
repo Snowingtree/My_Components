@@ -503,7 +503,7 @@ describe('functions', () => {
 
 > 测试代码：
 
-关于查找属性，有两个方法，get和find：
+关于查找属性，有两个方法，get和find：**同样可以查找节点**
 
 - get()：强制查找，找不到就报错，找到就返回包装器对象，直接可以链式调用
 - find()：温和查找，找不到不报错，找到和上面一样返回包装器对象，找不到也会返回一个空的包装器对象，需要判断 `exists()` 是否为空再进行链式调用
@@ -562,7 +562,7 @@ describe("Button.vue",()=>{
         // 测试事件
         // 使用trigger触发事件
         wrapper.get("button").trigger("click");
-        // 通过emitted就可以看到所有被触发的事件
+        // 通过emitte d就可以看到所有被触发的事件
         console.log(wrapper.emitted());
         // toHaveProperty判断对象中是否有该属性
         expect(wrapper.emitted()).toHaveProperty("click")
@@ -875,3 +875,23 @@ export const getLastInstanceBottom = (id:string)=>{
 
 
 > 总结：我觉的这个Message组件的关键就是计算位置，如何的去获取上一个组件的bottom的位置，其次就是关于如何使用VNode去动态的创建组件，然后挂载到对应的DOM下面`method.ts`详细解释，以及如何的从外部向Vnode中传入参数，如何从组件内部暴露出参数然后通过Vnode去获取。
+
+# 组件开发方法论
+
+- 根据需求初步确定属性 / 事件 /slots/expose（不需要特别精确，后期随着功能开发可以持续更新）
+- 组件的静态版本（不加交互，只有 html 结构，classes，slots）
+- 将需求中有行为的功能做成开发计划列表
+- 根据列表一项项完成功能
+- 样式 / 测试 等收尾工作
+
+# Input
+
+> 这个组件开发起来不难，目前就学习到如何使用TDD进行开发，就是先写测试代码，然后根据测试进行开发
+
+
+
+> 目前就学习到几个小的知识点：
+>
+> 1. v-model 的实现原理
+> 2. `blur`的触发时间是在 `mousedown`之后,`mouseup`之前触发
+

@@ -113,9 +113,9 @@
     <!-- <div>
         <button @click="createMessageItem">add</button>
     </div> -->
-    <!--  -->
+    <!-- Input 组件 -->
     <div>
-        
+        <Input v-model="test" placeholder="密码文本框，可以切换" showPassword/>
     </div>
 </template>
 
@@ -176,15 +176,15 @@
     // },2000)
 
     // Message测试代码
-    import type {MessageProps} from "./components/Message/type"
-    import {createMessage} from "./components/Message/method"
-
+    // import type {MessageProps} from "./components/Message/type"
+    // import {createMessage} from "./components/Message/method"
+    // function createMessageItem(){
+    //     createMessage({message:"你好",duration:0,type:"warning",showClose:true})
+    // }
     
-
-    function createMessageItem(){
-        createMessage({message:"你好",duration:0,type:"warning",showClose:true})
-    }
-
+    // Input测试代码
+    import Input from './components/Input/Input.vue';
+    let test = ref("")
 </script>
 
 <style scoped>
