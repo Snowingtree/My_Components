@@ -20,6 +20,9 @@
                 readonly
                 ref="inputRef"
             >
+            <template #suffix>
+                <Icon icon="angle-down" class="header-angle" :class="{'is-active':isDropdowmShow}"></Icon>
+            </template>
             </Input>
             <template v-slot:content>
                 <ul class="wm-select-menu">
@@ -53,6 +56,7 @@ export default {
     import { reactive, ref, type Ref } from 'vue';
     import type {TooltipInstance} from "../Tooltip/type"
     import type {InputInstanceFather} from "@/components/Input/type"
+    import Icon from '../Icon/Icon.vue';
 
     const props = withDefaults(defineProps<SelectProps>(),{
 
@@ -80,7 +84,7 @@ export default {
     }
 
     const inputRef = ref() as Ref<InputInstanceFather>;  
-    const findOptions = (value:string)=>{
+    const findOptions = (value:string | number)=>{
         const option = props.options?.find(opt => opt.value === value);
         return option?option:null;
     }

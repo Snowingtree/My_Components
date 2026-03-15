@@ -87,7 +87,6 @@
                         class="wm-input__password"
                         @click="changePasswordVisible"
                     >
-
                     </Icon>
                 </span>
             </div>

@@ -10,6 +10,14 @@
     display: inline-block;
     vertical-align: middle;
     line-height: 32px;
+    .wm-input {
+        .header-angle {
+            transition: transform var(--wm-transition-duration);
+            &.is-active {
+                transform: rotate(180deg);
+            }
+        }
+    }
 
     .wm-tooltip__popper {
         padding: 0;

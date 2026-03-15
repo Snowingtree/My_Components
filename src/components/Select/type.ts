@@ -1,11 +1,11 @@
 export interface SelectOption{
     label:string,
-    value:string,
+    value:string | number,
     disabled?:boolean,
 }
 
 export interface SelectProps{
-    modelValue:string,
+    modelValue:string | number,
     // 选项
     options?:SelectOption[],
 
