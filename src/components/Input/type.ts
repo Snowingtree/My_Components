@@ -1,4 +1,4 @@
-
+import type {Ref} from "vue"
 // 属性
 export interface InputProps {
     type?: "text" | "textarea" | "password", //正常输入 | 文本 | 密码
@@ -28,5 +28,10 @@ export interface InputEmits{
 
 // 暴露当前组件的实例
 export interface InputInstance {
-    ref:HTMLInputElement | HTMLTextAreaElement,
+  ref: Ref<HTMLInputElement | HTMLTextAreaElement | undefined>,
+}
+
+// 父组件拿到的实例类型
+export interface InputInstanceFather {
+  ref: HTMLInputElement | HTMLTextAreaElement | undefined,
 }

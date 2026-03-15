@@ -81,6 +81,9 @@ export default {
         if(props.trigger === "click" && isOpen.value === true && !props.manual){
             close();
         }
+        if(isOpen.value === true){
+            emits("clickOutSize",true);
+        }
     }
     // 使用hook
     useClickOutside(fatherNode,closeOutSide);

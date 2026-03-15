@@ -898,3 +898,30 @@ export const getLastInstanceBottom = (id:string)=>{
 # Switch
 
 关于Switch主要是实现开关的动态移动，这章节主要是实现如何用input的checkbox和div绑定，实现ui和组件的事件传递，没有什么新的知识，主要是ui的设计，确实有意思。
+
+# Select
+
+> 关于封装Select组件，有一个重要的点，就是关于Vue会帮你对组件暴露出来的实例进行解包，就是如果实例暴露出来的是Ref，但是在父组件中，Vue 会自动解包 exposed 中的 Ref,因此父组件看到的 ref 是解包后的 DOM 元素，而不是 Ref 对象本身
+
+```ts
+// 暴露当前组件的实例
+const inputRef = ref<HTMLInputElement | HTMLTextAreaElement>()
+defineExpose<InputInstance>({
+    ref: inputRef
+})
+export interface InputInstance {
+  ref: Ref<HTMLInputElement | HTMLTextAreaElement | undefined>,
+}
+
+
+// 父组件拿到的实例类型
+export interface InputInstanceFather {
+  ref: HTMLInputElement | HTMLTextAreaElement | undefined,
+}
+
+//所以父组件中应写：
+inputRef.value?.ref?.focus()
+//而不是：
+inputRef.value?.ref.value?.focus()
+```
+

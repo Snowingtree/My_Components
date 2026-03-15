@@ -1,15 +1,15 @@
 import {
-  config$1,
-  icon,
-  parse$1,
-  text
-} from "./chunk-VYB25A4C.js";
-import {
   computed,
   defineComponent,
   h,
   watch
 } from "./chunk-H6MPEGKE.js";
+import {
+  config$1,
+  icon,
+  parse$1,
+  text
+} from "./chunk-VYB25A4C.js";
 
 // node_modules/@fortawesome/vue-fontawesome/index.es.js
 function _arrayLikeToArray(r, a) {

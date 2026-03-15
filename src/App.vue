@@ -118,8 +118,12 @@
         <Input v-model="test" placeholder="密码文本框，可以切换" showPassword/>
     </div> -->
     <!-- Switch 组件 -->
-    <div>
+    <!-- <div>
         <Switch activeValue="right" inactiveValue="left"></Switch>
+    </div> -->
+    <!-- Select 组件 -->
+    <div>
+        <!-- <Select></Select> -->
     </div>
 </template>
 
@@ -191,7 +195,10 @@
     // let test = ref("")
 
     // Switch组件测试
-    import Switch from './components/Switch/Switch.vue';
+    // import Switch from './components/Switch/Switch.vue';
+
+    // Select组件测试
+    import Select from './components/Select/Select.vue';
 </script>
 
 <style scoped>

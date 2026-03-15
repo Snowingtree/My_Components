@@ -116,6 +116,7 @@
                 :autocomplete="autocomplete"
                 :form="form"
                 :autofocus="autofocus"
+                ref="inputRef"
             ></textarea>
         </template>
     </div>
@@ -134,7 +135,7 @@ export default {
     import { watch,ref,computed, useAttrs, nextTick } from "vue";
     import type {InputProps,InputEmits,InputInstance} from "./type"
     import Icon from "../Icon/Icon.vue";
-
+    import type {Ref} from "vue"
     const props = withDefaults(defineProps<InputProps>(),{
         type:"text",
         autocomplete:"off"
@@ -142,7 +143,7 @@ export default {
     const attrs = useAttrs();//获取为声明的属性
     const emits = defineEmits<InputEmits>();
 
-    let innerValue = ref(props.modelValue);
+    let innerValue = ref(props.modelValue);     
     const handleInput = ()=>{
         emits("update:modelValue",innerValue.value);
         emits("input",innerValue.value);
@@ -184,7 +185,7 @@ export default {
         emits("update:modelValue",innerValue.value);
         emits("input",innerValue.value);
         emits("change",innerValue.value);
-        emits("clear");
+        emits("clear"); 
         console.log("clear")
     }
 
@@ -200,7 +201,7 @@ export default {
         inputRef.value?.focus();
     }
     defineExpose<InputInstance>({
-        ref:inputRef.value!
+        ref: inputRef
     })
 
     // NOOP表示空函数
