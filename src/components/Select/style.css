@@ -25,7 +25,13 @@
     .wm-input.is-isFocus .wm-input__wrapper {
         box-shadow: 0 0 0 1px var(--wm-select-input-focus-border-color) inset!important
     }
-
+    .wm-select__nodata, .wm-select__loading{
+        padding: 10px 0;
+        margin:0;
+        text-align:center;
+        color: var(--wm-text-color-placeholder);
+        font-size: var(--wm-select-item-font-color);
+    }
     .wm-input__inner {
         cursor: pointer;
     }
@@ -42,6 +48,9 @@
         line-height: 34px;
         box-sizing: border-box;
         cursor: pointer;
+        &.is-highlight{
+            background-color: var(--wm-select-item-hover-bg-color);
+        }
         &:hover {
             background-color: var(--wm-select-item-hover-bg-color);
         }

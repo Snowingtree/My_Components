@@ -12,5 +12,5 @@ const options2 = [
 ]
 </script>
 <template>
-  <Select v-model="test" placeholder="基础选择器，请选择" :options="options2"></Select>
+  <Select v-model="test" placeholder="基础选择器，请选择" :options="options2" clearable></Select>
 </template>

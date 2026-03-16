@@ -1,0 +1,78 @@
+<script setup>
+import Select from '@/components/Select/Select.vue'
+
+// 美国50个州的英文名称数组（按字母顺序排列）
+const usStates = [
+  "Alabama",          // 阿拉巴马州
+  "Alaska",           // 阿拉斯加州
+  "Arizona",          // 亚利桑那州
+  "Arkansas",         // 阿肯色州
+  "California",       // 加利福尼亚州
+  "Colorado",         // 科罗拉多州
+  "Connecticut",      // 康涅狄格州
+  "Delaware",         // 特拉华州
+  "Florida",          // 佛罗里达州
+  "Georgia",          // 佐治亚州
+  "Hawaii",           // 夏威夷州
+  "Idaho",            // 爱达荷州
+  "Illinois",         // 伊利诺伊州
+  "Indiana",          // 印第安纳州
+  "Iowa",             // 艾奥瓦州（衣阿华州）
+  "Kansas",           // 堪萨斯州
+  "Kentucky",         // 肯塔基州
+  "Louisiana",        // 路易斯安那州
+  "Maine",            // 缅因州
+  "Maryland",         // 马里兰州
+  "Massachusetts",    // 马萨诸塞州
+  "Michigan",         // 密歇根州
+  "Minnesota",        // 明尼苏达州
+  "Mississippi",      // 密西西比州
+  "Missouri",         // 密苏里州
+  "Montana",          // 蒙大拿州
+  "Nebraska",         // 内布拉斯加州
+  "Nevada",           // 内华达州
+  "New Hampshire",    // 新罕布什尔州
+  "New Jersey",       // 新泽西州
+  "New Mexico",       // 新墨西哥州
+  "New York",         // 纽约州
+  "North Carolina",   // 北卡罗来纳州
+  "North Dakota",     // 北达科他州
+  "Ohio",             // 俄亥俄州
+  "Oklahoma",         // 俄克拉何马州
+  "Oregon",           // 俄勒冈州
+  "Pennsylvania",     // 宾夕法尼亚州
+  "Rhode Island",     // 罗得岛州
+  "South Carolina",   // 南卡罗来纳州
+  "South Dakota",     // 南达科他州
+  "Tennessee",        // 田纳西州
+  "Texas",            // 得克萨斯州
+  "Utah",             // 犹他州
+  "Vermont",          // 佛蒙特州
+  "Virginia",         // 弗吉尼亚州
+  "Washington",       // 华盛顿州
+  "West Virginia",    // 西弗吉尼亚州
+  "Wisconsin",        // 威斯康星州
+  "Wyoming"           // 怀俄明州
+];
+
+const remoteFilter = (query)=>{
+    return new Promise((resolve)=>{
+        if(query){
+            setTimeout(()=>{
+                const option = usStates.filter((item)=>{
+                    return item.toLowerCase().includes(query.toLowerCase());
+                }).map(label =>{
+                    return {label,value:label}
+                })
+                resolve(option);
+            },500)
+        }else{
+            resolve([])
+        }
+    })
+}
+
+</script>
+<template>
+  <Select v-model="test" placeholder="基础选择器，请选择" remote :customfilterremote="remoteFilter" filterable></Select>
+</template>
