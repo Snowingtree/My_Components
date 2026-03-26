@@ -1,17 +1,31 @@
 {
-  "name": "my-components",
-  "version": "0.0.0",
-  "private": true,
+  "name": "snowingress-my-components",
+  "version": "0.1.1",
+  "private": false,
   "type": "module",
+  "main": "./dist/index.umd.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/types/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "require": "./dist/index.umd.cjs",
+      "types": "./dist/types/index.d.ts"
+    },
+    "./style.css": "./dist/index.css"
+  },
   "scripts": {
     "dev": "vite",
-    "build": "run-p type-check \"build-only {@}\" --",
+    "build": "vite build && vue-tsc -p tsconfig.build.json",
     "preview": "vite preview",
-    "build-only": "vite build",
     "type-check": "vue-tsc --build",
     "docs:dev": "vitepress dev docs",
     "docs:build": "vitepress build docs",
-    "docs:preview": "vitepress preview docs"
+    "docs:preview": "vitepress preview docs",
+    "prepublishOnly": "npm run build"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^7.2.0",
@@ -21,7 +35,9 @@
     "axios": "^1.13.6",
     "lodash-es": "^4.17.23",
     "postcss-color-mix": "^1.1.0",
-    "postcss-for": "^2.1.1",
+    "postcss-for": "^2.1.1"
+  },
+  "peerDependencies": {
     "vue": "^3.5.29"
   },
   "devDependencies": {
@@ -43,6 +59,7 @@
     "vite-plugin-vue-devtools": "^8.0.6",
     "vitepress": "^1.6.4",
     "vitest": "^4.0.18",
+    "vue": "^3.5.29",
     "vue-tsc": "^3.2.5"
   },
   "engines": {

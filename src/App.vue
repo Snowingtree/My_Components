@@ -112,7 +112,7 @@
     <!-- Message组件展示 -->
     <!-- <div>
         <button @click="createMessageItem">add</button>
-    </div> -->
+    </div>-->
     <!-- Input 组件 -->
     <!-- <div>
         <Input v-model="test" placeholder="密码文本框，可以切换" showPassword/>
@@ -121,31 +121,31 @@
     <!-- <div>
         <Switch activeValue="right" inactiveValue="left"></Switch>
     </div> -->
-    <!-- Select 组件 -->
-    <div>
-        <!-- <Select></Select> -->
-    </div>
+    <!-- 打包代码测试 -->
+  <div>
+    <WMButton type="primary">按钮测试</WMButton>
+  </div>
 </template>
 
 <script setup lang="ts">
-    import Button from './components/Button/Button.vue';
-    import Collapse from './components/Collapse/Collapse.vue';
-    import CollapseItem from './components/Collapse/CollapseItem.vue';
-    import Icon from './components/Icon/Icon.vue';
-    import Alert from './components/Alert/Alert.vue';
-    import Tooltip from './components/Tooltip/Tooltip.vue';
-    import Dropdown from './components/Dropdown/Dropdown.vue';
-    import Message from './components/Message/Message.vue';
+    // import Button from './components/Button/Button.vue';
+    // import Collapse from './components/Collapse/Collapse.vue';
+    // import CollapseItem from './components/Collapse/CollapseItem.vue';
+    // import Icon from './components/Icon/Icon.vue';
+    // import Alert from './components/Alert/Alert.vue';
+    // import Tooltip from './components/Tooltip/Tooltip.vue';
+    // import Dropdown from './components/Dropdown/Dropdown.vue';
+    // import Message from './components/Message/Message.vue';
 
-    import type {NameType} from "./components/Collapse/types"
-    import type {Instance} from "./components/Alert/type"
-    import type { DropdownInstance } from './components/Dropdown/type';
-    import {ref,onMounted,h, type VNode} from "vue"
-    import type { ButtonInstance } from './components/Button/types';
-    import type { TooltipInstance } from './components/Tooltip/type';
+    // import type {NameType} from "./components/Collapse/types"
+    // import type {Instance} from "./components/Alert/type"
+    // import type { DropdownInstance } from './components/Dropdown/type';
+    // import {ref,onMounted,h, type VNode} from "vue"
+    // import type { ButtonInstance } from './components/Button/types';
+    // import type { TooltipInstance } from './components/Tooltip/type';
 
-    import type {Options} from "@popperjs/core"
-    import type {menuOptions} from "./components/Dropdown/type"
+    // import type {Options} from "@popperjs/core"
+    // import type {menuOptions} from "./components/Dropdown/type"
 
 
     // 为什么这里要给类型呢？
@@ -184,6 +184,7 @@
     // },2000)
 
     // Message测试代码
+    // import Message from './components/Message/Message.vue';
     // import type {MessageProps} from "./components/Message/type"
     // import {createMessage} from "./components/Message/method"
     // function createMessageItem(){
@@ -198,7 +199,9 @@
     // import Switch from './components/Switch/Switch.vue';
 
     // Select组件测试
-    import Select from './components/Select/Select.vue';
+    // import Select from './components/Select/Select.vue';
+
+    // 打包代码测试
 </script>
 
 <style scoped>
