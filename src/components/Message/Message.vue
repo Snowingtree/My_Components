@@ -93,6 +93,7 @@ export default {
 
 
     onMounted(async ()=>{
+        startTime();
         visible.value = true;
 
         await nextTick(); //等待DOM节点更新之后再执行下面的逻辑

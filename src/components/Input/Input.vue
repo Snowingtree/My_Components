@@ -185,7 +185,7 @@ export default {
         emits("input",innerValue.value);
         emits("change",innerValue.value);
         emits("clear"); 
-        console.log("clear")
+        // console.log("clear")
     }
 
     // 点击是否展示密码
