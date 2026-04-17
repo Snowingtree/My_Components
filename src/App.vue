@@ -110,13 +110,13 @@
         </Dropdown>
     </div> -->
     <!-- Message组件展示 -->
-    <!-- <div>
-        <button @click="createMessageItem">add</button>
-    </div>-->
-    <!-- Input 组件 -->
     <div>
-        <Input v-model="test" placeholder="密码文本框，可以切换" showPassword/>
+        <button @click="createMessageItem">add</button>
     </div>
+    <!-- Input 组件 -->
+    <!-- <div>
+        <Input v-model="test" placeholder="密码文本框，可以切换" showPassword/>
+    </div> -->
     <!-- Switch 组件 -->
     <!-- <div>
         <Switch activeValue="right" inactiveValue="left"></Switch>
@@ -184,17 +184,17 @@
     // },2000)
 
     // Message测试代码
-    // import Message from './components/Message/Message.vue';
-    // import type {MessageProps} from "./components/Message/type"
-    // import {createMessage} from "./components/Message/method"
-    // function createMessageItem(){
-    //     createMessage({message:"你好",duration:3000,type:"warning",showClose:true})
-    // }
+    import Message from './components/Message/Message.vue';
+    import type {MessageProps} from "./components/Message/type"
+    import {createMessage} from "./components/Message/method"
+    function createMessageItem(){
+        createMessage({message:"你好",duration:3000,type:"warning",showClose:true})
+    }
     
     // Input测试代码
-    import Input from './components/Input/Input.vue';
-    import {ref} from "vue"
-    let test = ref("")
+    // import Input from './components/Input/Input.vue';
+    // import {ref} from "vue"
+    // let test = ref("")
 
     // Switch组件测试
     // import Switch from './components/Switch/Switch.vue';

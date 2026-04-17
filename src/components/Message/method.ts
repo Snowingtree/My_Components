@@ -5,12 +5,23 @@ import Message from "./Message.vue"
 import type { MessageInfo } from "./type";
 
 import {useZIndex} from "./../../hooks/useZIndex"
+// 引入配置文件
+import { messageConfig } from "./config"
 
 // 这里需要使用响应式的数据，不然在getLastInstanceBottom的时候，上一个实例可能没有push进去
 // 响应式能够保证当上一个实例被push进去的时候,数据状态会更新
 let instances:MessageInfo[] = shallowReactive([]);
 let seed = 1;
+
+
 export const createMessage = (props:createMessageProps)=>{
+
+    // 当消息的数量超过了，就不在创建
+    if (instances.length >= messageConfig.max) {
+        return
+    }
+
+
     const {nextZIndex} = useZIndex();
     const contain = document.createElement("div");
     let id = `message_${seed ++}`;
