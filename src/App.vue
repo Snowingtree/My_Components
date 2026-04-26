@@ -110,9 +110,9 @@
         </Dropdown>
     </div> -->
     <!-- Message组件展示 -->
-    <div>
+    <!-- <div>
         <button @click="createMessageItem">add</button>
-    </div>
+    </div> -->
     <!-- Input 组件 -->
     <!-- <div>
         <Input v-model="test" placeholder="密码文本框，可以切换" showPassword/>
@@ -125,6 +125,9 @@
   <!-- <div>
     <WMButton type="primary">按钮测试</WMButton>
   </div> -->
+  <SKU :specList="specList" :specCombinationList="specCombinationList">
+
+  </SKU>
 </template>
 
 <script setup lang="ts">
@@ -184,12 +187,12 @@
     // },2000)
 
     // Message测试代码
-    import Message from './components/Message/Message.vue';
-    import type {MessageProps} from "./components/Message/type"
-    import {createMessage} from "./components/Message/method"
-    function createMessageItem(){
-        createMessage({message:"你好",duration:3000,type:"warning",showClose:true})
-    }
+    // import Message from './components/Message/Message.vue';
+    // import type {MessageProps} from "./components/Message/type"
+    // import {createMessage} from "./components/Message/method"
+    // function createMessageItem(){
+    //     createMessage({message:"你好",duration:3000,type:"warning",showClose:true})
+    // }
     
     // Input测试代码
     // import Input from './components/Input/Input.vue';
@@ -202,6 +205,23 @@
     // Select组件测试
     // import Select from './components/Select/Select.vue';
 
+    // SKU组件测试
+    import SKU from './components/SKU/SKU.vue';
+    // 所有选项
+    const specList = [
+        { id:"1",title: "颜色", list: ["红色", "紫色", "白色"] },
+        { id:"2",title: "套餐", list: ["套餐一", "套餐二", "套餐三"] },
+        { id:"3",title: "内存", list: ["64G", "128G", "256G", "512G"] },
+    ]
+    // 支持的选项
+    const specCombinationList = [
+        { id: "1", specs: ["紫色", "套餐一", "64G"] },
+        { id: "2", specs: ["紫色", "套餐一", "128G"] },
+        { id: "3", specs: ["紫色", "套餐二", "128G"] },
+        { id: "4", specs: ["红色", "套餐二", "256G"] },
+        { id: "5", specs: ["白色", "套餐一", "512G"] },
+        { id: "6", specs: ["白色", "套餐二", "256G"] },
+    ];
     // 打包代码测试
 </script>
 
