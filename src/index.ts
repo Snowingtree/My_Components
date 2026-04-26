@@ -14,6 +14,7 @@ import Icon from './components/Icon/Icon.vue'
 import Input from './components/Input/Input.vue'
 import Message from './components/Message/Message.vue'
 import Select from './components/Select/Select.vue'
+import SKU from './components/SKU/SKU.vue'
 import Switch from './components/Switch/Switch.vue'
 import Tooltip from './components/Tooltip/Tooltip.vue'
 
@@ -31,6 +32,7 @@ const components = [
   Input,
   Message,
   Select,
+  SKU,
   Switch,
   Tooltip,
 ]
@@ -45,6 +47,7 @@ export {
   Input,
   Message,
   Select,
+  SKU,
   Switch,
   Tooltip,
   createMessage,

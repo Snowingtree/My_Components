@@ -32,6 +32,7 @@ export default defineConfig({
         text: 'Data',
         items: [
           { text: 'Select', link: '/Components/Select' },
+          { text: 'SKU', link: '/Components/SKU' },
           { text: 'Collapse', link: '/Components/Collapse' },
         ],
       },
